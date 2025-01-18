@@ -56,6 +56,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  bool _clicked = false;
 
   void _incrementCounter() {
     setState(() {
@@ -65,6 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
+      _clicked = !_clicked;
     });
   }
 
@@ -86,10 +88,24 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
+      body: Stack(children: <Widget>[
+        AnimatedPositioned(
+            duration: Duration(seconds: 1),
+            width: _clicked ? 0 : 500,
+            height: _clicked ? 0 : 300,
+            top: _clicked ? 0 : 100,
+            left: _clicked ? 0 : 100,
+            child: Opacity(
+              opacity: .9,
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(12, 100, 12, 12),
+                child: Image(
+                  image: AssetImage('images/scanner_guide.png'),
+                  fit: BoxFit.contain,
+                ),
+              ),
+            )),
+        Column(
           // Column is also a layout widget. It takes a list of children and
           // arranges them vertically. By default, it sizes itself to fit its
           // children horizontally, and tries to be as tall as its parent.
@@ -113,8 +129,8 @@ class _MyHomePageState extends State<MyHomePage> {
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
-        ),
-      ),
+        )
+      ]),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
