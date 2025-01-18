@@ -88,20 +88,35 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Stack(children: <Widget>[
+      body: Center(
+          child: Stack(children: <Widget>[
         AnimatedPositioned(
-            duration: Duration(seconds: 1),
-            width: _clicked ? 0 : 500,
-            height: _clicked ? 0 : 300,
-            top: _clicked ? 0 : 100,
-            left: _clicked ? 0 : 100,
+            duration: Duration(milliseconds: 1000),
+            width: _clicked ? 0 : 300,
+            height: _clicked ? 0 : 250,
+            top: _clicked ? 300 : 0,
+            left: 0,
             child: Opacity(
               opacity: .9,
               child: Padding(
-                padding: EdgeInsets.fromLTRB(12, 100, 12, 12),
-                child: Image(
-                  image: AssetImage('images/scanner_guide.png'),
-                  fit: BoxFit.contain,
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                child: AnimatedSwitcher(
+                  duration: Duration(milliseconds: 50),
+                  transitionBuilder: (child, animation) {
+                    return FadeTransition(
+                      opacity: animation,
+                      child: Image(
+                        image: _clicked
+                            ? AssetImage('images/scanner_guide_blue.png')
+                            : AssetImage('images/scanner_guide.png'),
+                        fit: BoxFit.contain,
+                      ),
+                    );
+                  },
+                  child: Image(
+                    image: AssetImage('images/scanner_guide.png'),
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
             )),
@@ -130,7 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         )
-      ]),
+      ])),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
