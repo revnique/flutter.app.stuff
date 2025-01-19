@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rive/rive.dart' as rive;
 
 void main() {
   runApp(const MyApp());
@@ -58,6 +59,15 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   bool _clicked = false;
 
+  rive.SMITrigger? _bump;
+
+  void _onRiveInit(rive.Artboard artboard) {
+    var controller = rive.StateMachineController.fromArtboard(
+        artboard, 'run_blink_n_shrink');
+    artboard.addController(controller!);
+    _bump = controller.findInput<bool>('buck_found') as rive.SMITrigger;
+  }
+
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -66,6 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
+      _bump?.fire();
       _clicked = !_clicked;
     });
   }
@@ -90,36 +101,10 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
           child: Stack(children: <Widget>[
-        AnimatedPositioned(
-            duration: Duration(milliseconds: 1000),
-            width: _clicked ? 0 : 300,
-            height: _clicked ? 0 : 250,
-            top: _clicked ? 300 : 0,
-            left: 0,
-            child: Opacity(
-              opacity: .9,
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                child: AnimatedSwitcher(
-                  duration: Duration(milliseconds: 50),
-                  transitionBuilder: (child, animation) {
-                    return FadeTransition(
-                      opacity: animation,
-                      child: Image(
-                        image: _clicked
-                            ? AssetImage('images/scanner_guide_blue.png')
-                            : AssetImage('images/scanner_guide.png'),
-                        fit: BoxFit.contain,
-                      ),
-                    );
-                  },
-                  child: Image(
-                    image: AssetImage('images/scanner_guide.png'),
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              ),
-            )),
+        rive.RiveAnimation.asset(
+          'images/bucktrace.found.animation.riv',
+          onInit: _onRiveInit,
+        ),
         Column(
           // Column is also a layout widget. It takes a list of children and
           // arranges them vertically. By default, it sizes itself to fit its
