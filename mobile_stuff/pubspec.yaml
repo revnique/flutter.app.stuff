@@ -63,6 +63,7 @@ flutter:
     - images/scanner_guide_red.png
     - images/scanner_guide_blue.png
     - images/bucktrace.found.animation.riv
+    - images/bt_dollar.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
