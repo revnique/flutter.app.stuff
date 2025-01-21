@@ -99,33 +99,49 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
-          child: Column(children: <Widget>[
+      body: Column(children: <Widget>[
         Expanded(
             child: Stack(children: <Widget>[
           Image(
             image: AssetImage('images/bt_dollar.jpg'),
             fit: BoxFit.contain,
           ),
-          rive.RiveAnimation.asset(
-            'images/bucktrace.found.animation.riv',
-            onInit: _onRiveInit,
-            fit: BoxFit.contain,
-          ),
+          // rive.RiveAnimation.asset(
+          //   'images/bucktrace.found.animation.riv',
+          //   onInit: _onRiveInit,
+          //   fit: BoxFit.fill,
+          // ),
+          Padding(
+              padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0.0),
+              child: rive.RiveAnimation.asset(
+                'images/bucktrace.found.animation.riv',
+                onInit: _onRiveInit,
+                fit: BoxFit.fill,
+              )),
+          // Container(color: Colors.red))
+
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Padding(
+                  padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0.0),
+                  child: const Text(
+                    'You have pushed the button this many times:',
+                  ))
+            ],
+          )
         ])),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        Row(
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
         )
-      ])),
+      ]),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
