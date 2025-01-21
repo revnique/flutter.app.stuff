@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart' as rive;
+import 'dart:io';
 
 void main() {
   runApp(const MyApp());
@@ -103,14 +104,11 @@ class _MyHomePageState extends State<MyHomePage> {
         Expanded(
             child: Stack(children: <Widget>[
           Image(
-            image: AssetImage('images/bt_dollar.jpg'),
+            image: Device.isAndroid
+                ? AssetImage('images/bt_dollar_tall.jpg')
+                : AssetImage('images/bt_dollar.jpg'),
             fit: BoxFit.contain,
           ),
-          // rive.RiveAnimation.asset(
-          //   'images/bucktrace.found.animation.riv',
-          //   onInit: _onRiveInit,
-          //   fit: BoxFit.fill,
-          // ),
           Padding(
               padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0.0),
               child: rive.RiveAnimation.asset(
@@ -127,9 +125,17 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               Padding(
                   padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0.0),
-                  child: const Text(
-                    'You have pushed the button this many times:',
-                  ))
+                  child: Text('You have pushed the button this many times:',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        background: Paint()
+                          ..color = Colors.blue
+                          ..strokeWidth = 20
+                          ..strokeJoin = StrokeJoin.round
+                          ..strokeCap = StrokeCap.round
+                          ..style = PaintingStyle.stroke,
+                        color: Colors.white,
+                      )))
             ],
           )
         ])),
@@ -149,4 +155,17 @@ class _MyHomePageState extends State<MyHomePage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+}
+
+class Device {
+  static bool get isDesktop => !isWeb && (isWindows || isLinux || isMacOS);
+  static bool get isMobile => isAndroid || isIOS;
+  static bool get isWeb => false;
+
+  static bool get isWindows => Platform.isWindows;
+  static bool get isLinux => Platform.isLinux;
+  static bool get isMacOS => Platform.isMacOS;
+  static bool get isAndroid => Platform.isAndroid;
+  static bool get isFuchsia => Platform.isFuchsia;
+  static bool get isIOS => Platform.isIOS;
 }
