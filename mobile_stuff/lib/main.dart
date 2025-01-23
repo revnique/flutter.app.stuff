@@ -117,27 +117,28 @@ class _MyHomePageState extends State<MyHomePage> {
                 fit: BoxFit.fill,
               )),
           // Container(color: Colors.red))
-
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Padding(
-                  padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0.0),
-                  child: Text('You have pushed the button this many times:',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        background: Paint()
-                          ..color = Colors.blue
-                          ..strokeWidth = 20
-                          ..strokeJoin = StrokeJoin.round
-                          ..strokeCap = StrokeCap.round
-                          ..style = PaintingStyle.stroke,
-                        color: Colors.white,
-                      )))
-            ],
-          )
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Padding(
+                    padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 120.0),
+                    child: Text('You have pushed the button this many times:',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          background: Paint()
+                            ..color = Colors.blue.withAlpha(80)
+                            ..strokeWidth = 20
+                            ..strokeJoin = StrokeJoin.round
+                            ..strokeCap = StrokeCap.round
+                            ..style = PaintingStyle.stroke,
+                          color: Colors.white,
+                        )))
+              ],
+            )
+          ])
         ])),
         Row(
           children: <Widget>[
