@@ -30,10 +30,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  rive: 0.13.14
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+  bot_toast: ^4.1.3
+  rive: ^0.13.20
 
 dev_dependencies:
   flutter_test:
