@@ -79,6 +79,20 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
       _bump?.fire();
       _clicked = !_clicked;
+
+      final snackBar = SnackBar(
+        content: const Text('Yay! A SnackBar!'),
+        margin: EdgeInsets.only(bottom: 100),
+        duration: const Duration(milliseconds: 350),
+        behavior: SnackBarBehavior.floating,
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            // Some code to undo the change.
+          },
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     });
   }
 
@@ -117,28 +131,28 @@ class _MyHomePageState extends State<MyHomePage> {
                 fit: BoxFit.fill,
               )),
           // Container(color: Colors.red))
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Padding(
-                    padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 120.0),
-                    child: Text('You have pushed the button this many times:',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          background: Paint()
-                            ..color = Colors.blue.withAlpha(80)
-                            ..strokeWidth = 20
-                            ..strokeJoin = StrokeJoin.round
-                            ..strokeCap = StrokeCap.round
-                            ..style = PaintingStyle.stroke,
-                          color: Colors.white,
-                        )))
-              ],
-            )
-          ])
+          // Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+          //   Column(
+          //     crossAxisAlignment: CrossAxisAlignment.center,
+          //     mainAxisSize: MainAxisSize.max,
+          //     mainAxisAlignment: MainAxisAlignment.end,
+          //     children: <Widget>[
+          //       Padding(
+          //           padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 120.0),
+          //           child: Text('You have pushed the button this many times:',
+          //               textAlign: TextAlign.center,
+          //               style: TextStyle(
+          //                 background: Paint()
+          //                   ..color = Colors.blue.withAlpha(80)
+          //                   ..strokeWidth = 20
+          //                   ..strokeJoin = StrokeJoin.round
+          //                   ..strokeCap = StrokeCap.round
+          //                   ..style = PaintingStyle.stroke,
+          //                 color: Colors.white,
+          //               )))
+          //     ],
+          //   )
+          // ])
         ])),
         Row(
           children: <Widget>[
