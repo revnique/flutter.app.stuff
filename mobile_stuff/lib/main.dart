@@ -1,3 +1,6 @@
+import 'dart:ffi';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart' as rive;
 import 'dart:io';
@@ -81,19 +84,55 @@ class _MyHomePageState extends State<MyHomePage> {
       _clicked = !_clicked;
 
       final snackBar = SnackBar(
-        content: const Text('Yay! A SnackBar!'),
-        margin: EdgeInsets.only(bottom: 100),
-        duration: const Duration(milliseconds: 350),
-        behavior: SnackBarBehavior.floating,
-        action: SnackBarAction(
-          label: 'Undo',
-          onPressed: () {
-            // Some code to undo the change.
-          },
+        content: Text(
+          'FOUND: ${randomSerial()}',
+          textAlign: TextAlign.center,
         ),
+        margin: EdgeInsets.only(bottom: 100),
+        duration: const Duration(milliseconds: 1200),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.black.withAlpha(100),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     });
+  }
+
+  String randomSerial() {
+    var ran = Random();
+    const p = [
+      'A',
+      'B',
+      'C',
+      'D',
+      'E',
+      'F',
+      'G',
+      'H',
+      'I',
+      'J',
+      'K',
+      'L',
+    ];
+    var prefix = p[ran.nextInt(12)];
+    const s = [
+      'A',
+      'B',
+      'C',
+      'D',
+      'E',
+      'F',
+      'G',
+      'H',
+      'I',
+      'J',
+      'K',
+      'L',
+      '*',
+    ];
+    var suffix = s[ran.nextInt(13)];
+    var sn = ran.nextInt(99999999);
+    late String rtn = '$prefix$sn$suffix';
+    return rtn;
   }
 
   @override
