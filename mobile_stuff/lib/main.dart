@@ -63,13 +63,20 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   bool _clicked = false;
 
-  rive.SMITrigger? _bump;
+  rive.SMITrigger? _trigger_blink_n_shrink;
+  rive.SMITrigger? _trigger_blink_red;
 
   void _onRiveInit(rive.Artboard artboard) {
-    var controller = rive.StateMachineController.fromArtboard(
+    var blinkNShrinkController = rive.StateMachineController.fromArtboard(
         artboard, 'run_blink_n_shrink');
-    artboard.addController(controller!);
-    _bump = controller.findInput<bool>('buck_found') as rive.SMITrigger;
+    var blinkRedController =
+        rive.StateMachineController.fromArtboard(artboard, 'run_blink_red');
+    artboard.addController(blinkNShrinkController!);
+    artboard.addController(blinkRedController!);
+    _trigger_blink_n_shrink = blinkNShrinkController
+        .findInput<bool>('trigger_blink_n_shrink') as rive.SMITrigger;
+    _trigger_blink_red = blinkRedController.findInput<bool>('trigger_blink_red')
+        as rive.SMITrigger;
   }
 
   void _foundNew() {
@@ -80,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
-      _bump?.fire();
+      _trigger_blink_n_shrink?.fire();
       _clicked = !_clicked;
 
       final snackBar = SnackBar(
@@ -99,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _foundExisting() {
     setState(() {
-      _bump?.fire();
+      _trigger_blink_red?.fire();
     });
   }
 
