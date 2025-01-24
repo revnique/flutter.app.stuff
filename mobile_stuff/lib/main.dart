@@ -72,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _bump = controller.findInput<bool>('buck_found') as rive.SMITrigger;
   }
 
-  void _incrementCounter() {
+  void _foundNew() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
@@ -94,6 +94,12 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.black.withAlpha(100),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    });
+  }
+
+  void _foundExisting() {
+    setState(() {
+      _bump?.fire();
     });
   }
 
@@ -152,6 +158,23 @@ class _MyHomePageState extends State<MyHomePage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
+        actions: [
+          OverflowBar(
+            spacing: 8,
+            overflowAlignment: OverflowBarAlignment.end,
+            children: <Widget>[
+              OutlinedButton(
+                onPressed: _foundExisting,
+                child: Icon(Icons.add_chart),
+              ),
+              TextButton(child: const Text('clicky'), onPressed: () {}),
+              OutlinedButton(
+                onPressed: _foundNew,
+                child: Icon(Icons.add),
+              ),
+            ],
+          ),
+        ],
       ),
       body: Column(children: <Widget>[
         Expanded(
@@ -203,7 +226,7 @@ class _MyHomePageState extends State<MyHomePage> {
         )
       ]),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: _foundNew,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
